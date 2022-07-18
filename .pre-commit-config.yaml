@@ -6,3 +6,9 @@ repos:
     -   id: end-of-file-fixer
     -   id: check-yaml
     -   id: debug-statements
+-   repo: https://github.com/arrrrrmin/poetry-requirements
+    rev: v0.1.0
+    hooks:
+        - id: poetry-requirements
+          always_run: true
+          args: [-o, dependencies.txt, --dev, --without-hashes, --with-credentials]

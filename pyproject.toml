@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "pre-commit-requirements"
+name = "poetry-requirements"
 version = "0.1.0"
 description = "A pre-commit hook to automatically generate the projects requirement.txt file from poetry."
 authors = ["arrrrrmin <info@dotarmin.info>"]
 
 [tool.poetry.scripts]
-pre-commit-requirements = "pre_commit_requirements.main:run"
+poetry-requirements = "poetry-requirements.main:run"
 
 [tool.poetry.dependencies]
 python = "^3.10"

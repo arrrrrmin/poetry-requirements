@@ -1,6 +1,6 @@
--   id: pre-commit-requirements
+-   id: poetry-requirements
     name: Check requirements.txt
-    entry: pre-commit-requirements
+    entry: poetry-requirements
     language: python
     pass_filenames: false
     always_run: true
