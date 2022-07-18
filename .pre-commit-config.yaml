@@ -11,4 +11,4 @@ repos:
     hooks:
         - id: poetry-requirements
           always_run: true
-          args: [-o, requirements.txt, --dev, --without-hashes, --with-credentials]
+          args: [-o, requirements.txt, --dev, --without-hashes]
