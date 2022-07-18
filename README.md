@@ -13,7 +13,7 @@ the [`.pre-commit-hooks.yaml`]-entry.
     hooks:
         - id: poetry-requirements
           always_run: true
-          args: [-o, requirements.txt, --dev, --without-hashes, --with-credentials]
+          args: [-o, requirements.txt, --dev, --without-hashes]
 ````
 
 ````
@@ -34,7 +34,7 @@ Check requirements.txt...................................................Failed
 - hook id: poetry-requirements
 - exit code: 1
 
-Command for poetry export based on args in `.pre-commit-hooks.yaml`: poetry export --dev --without-hashes --with-credentials
+Command for poetry export based on args in `.pre-commit-hooks.yaml`: poetry export --dev --without-hashes
 File `requirements.txt` does not exist
 Requirements don't match poetry envionment, exporting dependencies ...
 Updated requirements.txt
