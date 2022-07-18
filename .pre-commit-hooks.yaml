@@ -1,6 +1,6 @@
--   id: poetry-requirements
+-   id: poetry_requirements
     name: Check requirements.txt
-    entry: poetry-requirements
+    entry: poetry_requirements
     language: python
     pass_filenames: false
     always_run: true

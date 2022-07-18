@@ -5,7 +5,7 @@ description = "A pre-commit hook to automatically generate the projects requirem
 authors = ["arrrrrmin <info@dotarmin.info>"]
 
 [tool.poetry.scripts]
-poetry-requirements = "poetry-requirements.main:run"
+poetry-requirements = "poetry_requirements.main:run"
 
 [tool.poetry.dependencies]
 python = "^3.10"
