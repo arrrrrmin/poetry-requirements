@@ -5,4 +5,4 @@
     pass_filenames: false
     always_run: true
     description: This hook checks if requirements.txt is in sync with for poetry environments.
-    args: [-o, requirements.txt, --without-hashes]
+    args: [-o, requirements.txt, --dev, --without-hashes]

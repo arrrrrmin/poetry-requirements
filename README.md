@@ -15,3 +15,27 @@ the [`.pre-commit-hooks.yaml`]-entry.
           always_run: true
           args: [-o, requirements.txt, --dev, --without-hashes, --with-credentials]
 ````
+
+````
+git commit -m "📦(.pre-commit-hooks.yaml): Better defaults in .pre-commit-hooks.yaml"
+trim trailing whitespace.................................................Passed
+fix end of files.........................................................Passed
+check yaml...............................................................Passed
+debug statements (python)............................(no files to check)Skipped
+Check requirements.txt...................................................Passed
+[main 4064d63] 📦(.pre-commit-hooks.yaml): Better defaults in .pre-commit-hooks.yaml
+````
+
+````
+git commit -m "📚: Update to README"
+check yaml...........................................(no files to check)Skipped
+debug statements (python)............................(no files to check)Skipped
+Check requirements.txt...................................................Failed
+- hook id: poetry-requirements
+- exit code: 1
+
+Command for poetry export based on args in `.pre-commit-hooks.yaml`: poetry export --dev --without-hashes --with-credentials
+File `requirements.txt` does not exist
+Requirements don't match poetry envionment, exporting dependencies ...
+Updated requirements.txt
+````
