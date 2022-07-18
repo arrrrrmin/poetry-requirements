@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# PyCharm
+.idea/
+
+# OSX
+.DS_Store
+
+# Poetry Lock
+poetry.lock

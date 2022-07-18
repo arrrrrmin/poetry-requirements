@@ -1,0 +1,8 @@
+-   id: pre-commit-requirements
+    name: Check requirements.txt
+    entry: pre-commit-requirements
+    language: python
+    pass_filenames: false
+    always_run: true
+    description: This hook checks if requirements.txt is in sync with for poetry environments.
+    args: [-o, dependencies.txt, --dev, --without-hashes, --with-credentials]
