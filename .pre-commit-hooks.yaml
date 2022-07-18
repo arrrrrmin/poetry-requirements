@@ -1,4 +1,4 @@
--   id: poetry_requirements
+-   id: poetry-requirements
     name: Check requirements.txt
     entry: poetry_requirements
     language: python
