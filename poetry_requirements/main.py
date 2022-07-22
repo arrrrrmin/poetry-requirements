@@ -40,8 +40,6 @@ def exec_poetry_export(args: argparse.Namespace) -> (str | Error):
         cmd += [args.dev]
     if args.without_hashes:
         cmd += [args.without_hashes]
-    if args.with_credentials:
-        cmd += [args.with_credentials]
     print(
         f"Command for poetry export based on args in `.pre-commit-hooks.yaml`: {' '.join(cmd)}"
     )
@@ -102,13 +100,6 @@ def run(argv: Sequence[str] | None = None) -> int:
         action="store_const",
         const="--without-hashes",
         help="Exclude hashes from the exported file",
-    )
-    parser.add_argument(
-        "--with-credentials",
-        dest="with_credentials",
-        action="store_const",
-        const="--with-credentials",
-        help="Include credentials for extra indices",
     )
     retv = 0
     if not poetry_exists():
