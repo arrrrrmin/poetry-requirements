@@ -1,33 +1,47 @@
-# pre-commit-requirements
-A pre-commit hook to automatically generate the projects requirement.txt file from poetry
+# poetry-requirements
 
-The hook checks if the currently available requirements.txt file matches the poetry environment export.
+A [pre-commit hook](https://pre-commit.com) to automatically generate the projects
+requirement.txt file from poetry.
 
-Your can pass arguments for [`poetry export`](https://python-poetry.org/docs/cli/#export) in
-`.pre-commit-config.yaml` via `args`. For possible `args` see the example below and
-the [`.pre-commit-hooks.yaml`]-entry.
+## Getting Started
 
-````yaml
+Useful if you want to benefit from [poetry](https://python-poetry.org/docs/) for
+dependendency management, but rely on requirements.txt for some environment or
+deployment in your git repository. An example could be a heroku deployment or
+an github action that wants to build a docker container using a requirements.txt.
+
+Add the following to your `.pre-commit-config.yaml`:
+```yaml
 -   repo: https://github.com/arrrrrmin/poetry-requirements
     rev: 0.1.1
     hooks:
         - id: poetry-requirements
           always_run: true
           args: [-o, requirements.txt, --dev, --without-hashes]
-````
+```
+Try it out using `pre-commit try-repo https://github.com/arrrrrmin/poetry-requirements poetry-requirements`.
+Be aware, your requirements.txt may change from what you exported from poetry,
+since `--dev` is enabled by default. Just remove `--dev` from `args` to disable
+the development dependency export.
 
-````
-git commit -m "📦(.pre-commit-hooks.yaml): Better defaults in .pre-commit-hooks.yaml"
-trim trailing whitespace.................................................Passed
-fix end of files.........................................................Passed
-check yaml...............................................................Passed
-debug statements (python)............................(no files to check)Skipped
-Check requirements.txt...................................................Passed
-[main 4064d63] 📦(.pre-commit-hooks.yaml): Better defaults in .pre-commit-hooks.yaml
-````
+### Prerequisites
 
+* Installed [pre-commit](https://pre-commit.com) (cli)
+* Installed pre-commit in your repo/git-hooks (`pre-commit install`)
+* `.pre-commit-config.yaml` containing the above `repo`, `rev`, `hooks` and `id`
+
+### Installing
+
+* `pip install pre-commit` or any of [these](https://pre-commit.com/#installation)
+* In the root of your repo `touch .pre-commit-config.yaml`
+* Paste the yaml config in the [Getting Started](#getting-started)-section
+* Run `pre-commit install`
+
+## What it does
+
+In case requirements do not match the used poetry environment:
 ````
-git commit -m "📚: Update to README"
+git commit -m "🔧: Changed some dependencies"
 check yaml...........................................(no files to check)Skipped
 debug statements (python)............................(no files to check)Skipped
 Check requirements.txt...................................................Failed
@@ -39,3 +53,29 @@ File `requirements.txt` does not exist
 Requirements don't match poetry envionment, exporting dependencies ...
 Updated requirements.txt
 ````
+
+In case everything is fine:
+````
+git commit -m "📦(.pre-commit-hooks.yaml): Better defaults in .pre-commit-hooks.yaml"
+trim trailing whitespace.................................................Passed
+fix end of files.........................................................Passed
+check yaml...............................................................Passed
+debug statements (python)............................(no files to check)Skipped
+Check requirements.txt...................................................Passed
+[main 4064d63] 📦(.pre-commit-hooks.yaml): Better defaults in .pre-commit-hooks.yaml
+````
+
+## Note
+
+This hook is intended for repositories, repyling on a requirements.txt that is
+commited to a git repository. So this hook does not support poetry's
+`--with-credentials` option.
+
+## License
+
+There's no license needed, just do what ever you want with it.
+
+## Acknowledgments
+
+[pre-commit's hooks repo](https://github.com/pre-commit/pre-commit-hooks) if you
+want to build a hook that repo is a very good way to start.
