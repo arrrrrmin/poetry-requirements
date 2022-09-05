@@ -1,5 +1,12 @@
 name: Coverage
 on:
+  push:
+    paths:
+      - "poetry_requirements/*"
+      - "tests/*"
+      - "pyproject.toml"
+    branches:
+      - main
   pull_request:
     types: [ opened, synchronize ]
 
