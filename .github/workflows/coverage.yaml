@@ -1,5 +1,7 @@
 name: Coverage
-on: pull_request
+on:
+  pull_request:
+    types: [ opened, synchronize ]
 
 jobs:
   coverage:
@@ -23,8 +25,14 @@ jobs:
       - uses: abatilo/actions-poetry@v2.1.6
         with:
           poetry-version: ${{ matrix.poetry-version }}
-      - name: Run poetry install
+      - name: Run poetry for 1.2.0 install
+        needs: [matrix.poetry-version]
+        if: ${{ matrix.poetry-version == "1.2.0" }}
         run: poetry install --with dev
+      - name: Run poetry for 1.1.15 install
+        needs: [matrix.poetry-version]
+        if: ${{ matrix.poetry-version == "1.1.15" }}
+        run: poetry install --dev
       - name: Run coverage
         run: poetry run pytest --cov-report xml --cov=poetry_requirements tests/
       - name: Upload coverage to Codecov
