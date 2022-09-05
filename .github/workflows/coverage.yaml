@@ -27,12 +27,12 @@ jobs:
         with:
           poetry-version: ${{ matrix.poetry-version }}
 
-      - name: Run poetry for 1.2.0 install
-        if: ${{ matrix.poetry-version == '1.2.0' }}
-        run: poetry install --with dev
-      - name: Run poetry for 1.1.15 install
-        if: ${{ matrix.poetry-version == '1.1.15' }}
+      - name: Run poetry install
+        # if: ${{ matrix.poetry-version == '1.2.0' }}
         run: poetry install
+      # - name: Run poetry for 1.1.15 install
+      #   if: ${{ matrix.poetry-version == '1.1.15' }}
+      #   run: poetry install
 
       - name: Run coverage
         run: poetry run pytest --cov-report xml --cov=poetry_requirements tests/
@@ -42,7 +42,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           env_vars: PYTHON
           files: ./coverage.xml
-          fail_ci_if_error: true
+          fail_ci_if_error: false
           flags: unittests
           name: codecov-umbrella
           verbose: true
