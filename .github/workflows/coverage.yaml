@@ -28,10 +28,10 @@ jobs:
           poetry-version: ${{ matrix.poetry-version }}
 
       - name: Run poetry for 1.2.0 install
-        if: ${{ matrix.poetry-version == "1.2.0" }}
+        if: ${{ matrix.poetry-version == '1.2.0' }}
         run: poetry install --with dev
       - name: Run poetry for 1.1.15 install
-        if: ${{ matrix.poetry-version == "1.1.15" }}
+        if: ${{ matrix.poetry-version == '1.1.15' }}
         run: poetry install --dev
 
       - name: Run coverage
