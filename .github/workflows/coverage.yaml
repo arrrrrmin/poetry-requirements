@@ -32,7 +32,7 @@ jobs:
         run: poetry install --with dev
       - name: Run poetry for 1.1.15 install
         if: ${{ matrix.poetry-version == '1.1.15' }}
-        run: poetry install --dev
+        run: poetry install
 
       - name: Run coverage
         run: poetry run pytest --cov-report xml --cov=poetry_requirements tests/
