@@ -1,7 +1,7 @@
 import argparse
 import re
 import subprocess
-from typing import Sequence, List, Tuple
+from typing import Sequence, List, Tuple, Union
 from pathlib import Path
 
 
@@ -33,7 +33,8 @@ def check_poetry_version(v: str) -> List[int]:
     return [int(v_sub_str) for v_sub_str in pat_findings[0].split(".")]
 
 
-def poetry_argument_parser(v: str) -> (Tuple[argparse.ArgumentParser, int] | Error):
+def poetry_argument_parser(v: str) -> Union[Tuple[argparse.ArgumentParser, int], Error]:
+    """Looks for the correct arguments depending on passed poetry version string."""
     if not all(i in v for i in ("Poetry", "version")):
         raise poetry_not_installed_error
     version = check_poetry_version(v)
@@ -59,7 +60,7 @@ def poetry_argument_parser(v: str) -> (Tuple[argparse.ArgumentParser, int] | Err
 
 def exec_poetry_export(
     args: argparse.Namespace, poetry_minor_version: int
-) -> (str | Exception):
+) -> Union[str, Exception]:
     """Execute poetry export and generate a requirements.txt"""
     cmd = ["poetry", "export"]
     if args.extras:
@@ -79,7 +80,7 @@ def exec_poetry_export(
     return current_requirements_string
 
 
-def read_existing_requirements(requirements_path: Path) -> (str | Error):
+def read_existing_requirements(requirements_path: Path) -> Union[str, Error]:
     """If existing read requirements.txt file"""
     if not requirements_path.exists():
         print(f"File `{requirements_path}` does not exist")
@@ -89,13 +90,13 @@ def read_existing_requirements(requirements_path: Path) -> (str | Error):
 
 def update_requirements(
     requirements_path: Path, updated_requirements: str
-) -> (Path | Error):
+) -> Union[Path, Error]:
     """Write a new requirements.txt file with current environment dependencies"""
     requirements_path.write_text(updated_requirements, encoding="utf-8")
     return requirements_path
 
 
-def run(argv: Sequence[str] | None = None) -> int:  # pragma no cover
+def run(argv: Union[Sequence[str], None] = None) -> int:  # pragma no cover
     """Runs the hook with arguments from users `.pre-commit-hooks.yaml`"""
     # Todo find a good way to test this
     v = subprocess.check_output(["poetry", "--version"]).decode("utf-8").strip()
@@ -115,5 +116,5 @@ def run(argv: Sequence[str] | None = None) -> int:  # pragma no cover
     return return_val
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma no cover
     raise SystemExit(run())
