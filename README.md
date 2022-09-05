@@ -1,3 +1,5 @@
+[![Coverage](https://github.com/arrrrrmin/poetry-requirements/actions/workflows/coverage.yaml/badge.svg)](https://github.com/arrrrrmin/poetry-requirements/actions/workflows/coverage.yaml)
+
 # poetry-requirements
 
 A [pre-commit hook](https://pre-commit.com) to automatically generate the projects
