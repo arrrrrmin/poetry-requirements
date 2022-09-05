@@ -1,0 +1,6 @@
+[run]
+source = poetry_requirements
+omit = poetry_requirements/main.py
+
+[xml]
+output = coverage.xml

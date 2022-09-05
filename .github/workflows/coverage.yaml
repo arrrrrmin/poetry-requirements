@@ -1,0 +1,55 @@
+name: Coverage
+on:
+  push:
+    paths:
+      - "poetry_requirements/*"
+      - "tests/*"
+      - "pyproject.toml"
+    branches:
+      - main
+  pull_request:
+    types: [ opened, synchronize ]
+
+jobs:
+  coverage:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+        poetry-version: ["1.2.0", "1.1.15"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ matrix.python-version }}-py-${{ hashFiles('**/pyproject.toml') }}
+          restore-keys: |
+            ${{ matrix.python-version }}-py-
+
+      - uses: abatilo/actions-poetry@v2.1.6
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+
+      - name: Run poetry install
+        # if: ${{ matrix.poetry-version == '1.2.0' }}
+        run: poetry install
+      # - name: Run poetry for 1.1.15 install
+      #   if: ${{ matrix.poetry-version == '1.1.15' }}
+      #   run: poetry install
+
+      - name: Run coverage
+        run: poetry run pytest --cov-report xml --cov=poetry_requirements tests/
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          env_vars: PYTHON
+          files: ./coverage.xml
+          fail_ci_if_error: false
+          flags: unittests
+          name: codecov-umbrella
+          verbose: true
