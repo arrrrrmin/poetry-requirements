@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "poetry-requirements"
-version = "0.1.1"
+version = "0.1.5"
 description = "A pre-commit hook to automatically generate the projects requirement.txt file from poetry."
 authors = ["arrrrrmin <info@dotarmin.info>"]
 
