@@ -22,22 +22,22 @@ Add the following to your `.pre-commit-config.yaml` if you run `poetry < 1.2.0`:
           always_run: true
           args: [-o, requirements.txt, --dev, --without-hashes]
 ```
-In case you run `poetry >= 1.2.0` (poetry support for `1.2.*` is only available with `rev >= 0.1.4`):
+In case you run `poetry >= 1.2.0` (`rev >= 1.5` supports poetry to `<=1.5` (thank [Minipada](https://github.com/Minipada)):
 ```yaml
 -   repo: https://github.com/arrrrrmin/poetry-requirements
-    rev: 0.1.4
+    rev: 0.1.5
     hooks:
         - id: poetry-requirements
           always_run: true
           args: [-o, requirements.txt, --with, dev, --without-hashes]
 ```
 Find you poetry version with `poetry --version` and add in the corresponding args in your `.pre-commit-config.yaml`.
-The repos default args are the ones of `1.2.0`.
+The repos default pre-commit args are the ones of `^1.2`.
 Since this is little program is a wrapper around `poetry export`, you can see the args at
 [poetry-docs-1.1](https://python-poetry.org/docs/1.1/cli/#export) or
 [poetry-docs-1.2](https://python-poetry.org/docs/cli/#export), but be aware of the [notes](#Note).
 
-Your can also clone the repo and try it out using
+You can also clone the repo and try it out using
 `pre-commit try-repo https://github.com/arrrrrmin/poetry-requirements poetry-requirements`.
 Note that your requirements.txt may change from what you exported from poetry,
 since `--dev`/`--with, dev,` is enabled by default. Just remove the corresponding part from `args`
@@ -98,3 +98,4 @@ There's no license needed, just do what ever you want with it.
 
 [pre-commit hooks repo](https://github.com/pre-commit/pre-commit-hooks) if you
 want to build a hook that repo is a very good way to start.
+Thanks to [Minipada](https://github.com/Minipada) for taking care of support for `poetry >= 1.3`
