@@ -27,12 +27,8 @@ def test_check_poetry_version():
         main.check_poetry_version(v)
     v = "1."
     with pytest.raises(
-        main.Error, match="Only poetry versions 1.1.*/1.2.* are supported"
-    ):
-        main.check_poetry_version(v)
-    v = "1.4"
-    with pytest.raises(
-        main.Error, match="Only poetry versions 1.1.*/1.2.* are supported"
+        main.Error,
+        match="Only poetry versions 1.1.*/1.2.*/1.3.*/1.4.*/1.5.* are supported",
     ):
         main.check_poetry_version(v)
 
