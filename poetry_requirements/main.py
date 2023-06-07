@@ -20,7 +20,7 @@ poetry_export_error = Error(
 )
 requirements_txt_outdated = Error(message="Requirements.txt needs update")
 v_pat = re.compile(r"([\d.]+)")
-supported_minors = ("1", "2")
+supported_minors = ("1", "2", "3", "4", "5")
 
 
 def check_poetry_version(v: str) -> List[int]:
@@ -29,7 +29,7 @@ def check_poetry_version(v: str) -> List[int]:
     if not len(pat_findings) >= 1:
         raise Error(message="Poetry version unknown or not supported")  # Todo
     if pat_findings[0].split(".")[1] not in supported_minors:
-        raise Error(message="Only poetry versions 1.1.*/1.2.* are supported")  # Todo
+        raise Error(message="Only poetry versions 1.1.*/1.2.*/1.3.*/1.4.*/1.5.* are supported")  # Todo
     return [int(v_sub_str) for v_sub_str in pat_findings[0].split(".")]
 
 
@@ -48,7 +48,7 @@ def poetry_argument_parser(v: str) -> Union[Tuple[argparse.ArgumentParser, int],
     parser.add_argument(
         "--without-hashes", action="store_const", const="--without-hashes"
     )
-    if version[1] == 2:
+    if version[1] in [2,3,4,5]:
         parser.add_argument("--without", action="extend", nargs="+", type=str)
         parser.add_argument("--with", action="extend", nargs="+", type=str)
         parser.add_argument("--only", action="extend", nargs="+", type=str)
@@ -68,9 +68,12 @@ def exec_poetry_export(
     if poetry_minor_version == 1:
         if args.dev:
             cmd += [args.dev]
-    if poetry_minor_version == 2:
+    elif poetry_minor_version in [2,3]:
         if args.__dict__["with"]:
-            cmd += f"--with {args.__dict__['with']}".split()
+            cmd += f"--with {args.__dict__['with'][0]}".split()
+    elif poetry_minor_version in [4,5]:
+        if args.__dict__["with"]:
+            cmd += f"--with={args.__dict__['with'][0]}".split()
     if args.without_hashes:
         cmd += [args.without_hashes]
     print(
