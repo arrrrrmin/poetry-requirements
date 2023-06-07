@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.8", "3.9", "3.10"]
-        poetry-version: ["1.2.0", "1.1.15"]
+        poetry-version: ["1.5.0", "1.4.0", "1.3.0", "1.2.0", "1.1.15"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -35,11 +35,7 @@ jobs:
           poetry-version: ${{ matrix.poetry-version }}
 
       - name: Run poetry install
-        # if: ${{ matrix.poetry-version == '1.2.0' }}
         run: poetry install
-      # - name: Run poetry for 1.1.15 install
-      #   if: ${{ matrix.poetry-version == '1.1.15' }}
-      #   run: poetry install
 
       - name: Run coverage
         run: poetry run pytest --cov-report xml --cov=poetry_requirements tests/
